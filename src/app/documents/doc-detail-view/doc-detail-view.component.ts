@@ -39,30 +39,27 @@ export class DocDetailViewComponent implements OnInit {
         }
 
         this.id = params.id;
-        this.generalService.getData(params.type + '/' + params.id).subscribe((res) => {
-          console.log('pub res', res);
-          
-          if (res.name == 'attestation-SELF') {
-            this.docName = res['additionalInput'].name;
-            if (res['additionalInput']['fileUrl']) {
-              res['additionalInput']['fileUrl'].forEach(doc => {
-                var tempObject = {}
-                console.log("element", doc)
-                tempObject['name'] = doc.split('-').slice(-1)[0];
-                tempObject['type'] = res['name'];
-                tempObject['file'] =  this.baseUrl + '/' + doc;
-                tempObject['extension'] = doc.split('.').slice(-1)[0];
-                tempObject['osid'] = res['osid'];
-                this.document.push(tempObject)
-              });
-            }
-            this.loader = false;
+        this.generalService.getData(params.entity).subscribe((res) => {
+          let fileUrls = res[0]["attestation-SELF"]
+          ?.find(d => d.osid === params.id)
+          ?.additionalInput?.fileUrl;
+          if (!!fileUrls && Array.isArray(fileUrls)) {
+            fileUrls.forEach(doc => {
+              var tempObject = {}
+              console.log("element", doc)
+              tempObject['name'] = doc.split('-').slice(-1)[0];
+              tempObject['type'] = res['name'];
+              tempObject['file'] =  this.baseUrl + '/' + doc;
+              tempObject['extension'] = doc.split('.').slice(-1)[0];
+              tempObject['osid'] = res['osid'];
+              this.document.push(tempObject)
+            });
+            console.log("added files to document: ", this.document);
+          } else {
+            console.log("invalid file urls: ", fileUrls, typeof fileUrls)
           }
-          console.log('this.document', this.document)
-        }, (err) => {
-          // this.toastMsg.error('error', err.error.params.errmsg)
-          console.log('error', err)
         });
+        
 
       }
 

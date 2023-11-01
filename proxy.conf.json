@@ -1,21 +1,28 @@
 {
-    "/elocker/api/v1": {
-        "target": "https://elocker.sunbirdrc.dev",
+    "/registry/api/v1": {
+        "target": "http://localhost:80",
         "changeOrigin": true,
         "logLevel": "debug",
         "secure": false
 
     },
 
-    "/elocker/api": {
-        "target": "https://elocker.sunbirdrc.dev",
+    "/registry/api": {
+        "target": "http://localhost:80",
         "changeOrigin": true,
         "logLevel": "debug",
         "secure": false
     },
 
-    "/elocker/api/docs": {
-        "target": "https://elocker.sunbirdrc.dev",
+    "/registry/api/docs": {
+        "target": "http://localhost:80",
+        "changeOrigin": true,
+        "logLevel": "debug",
+        "secure": false
+
+    },
+    "/auth": {
+        "target": "http://keycloak:8080",
         "changeOrigin": true,
         "logLevel": "debug",
         "secure": false
