@@ -38,11 +38,13 @@ export class GeneralService {
   }
 
   getDocument(url: string): Observable<any> {
+    console.log("calling document: ", url);
     return this.dataService.getDocument(url);
   }
 
 
   getData(apiUrl, outside: boolean = false) {
+    console.log("calling get request: ", apiUrl);
     var url;
     if (outside) {
       url = apiUrl;

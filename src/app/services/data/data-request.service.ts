@@ -100,18 +100,22 @@ export class DataService {
 
   }
 
-  getDocument(url: string): Observable<any> {
+  getDocument(url: string, responseType: string): Observable<any> {
     return new Observable((observer: Subscriber<any>) => {
         let objectUrl: string = null;
 
         this.http
             .get(url, {
-                headers: this.getHeader(),
-                responseType: 'blob'
+                headers: {
+                  ...this.getHeader(),
+                  accept: "application/octet-stream"
+                },
+                responseType: "blob"
             })
             .subscribe(m => {
-                objectUrl = URL.createObjectURL(m);
-                observer.next(objectUrl);
+                // objectUrl = URL.createObjectURL(m);
+                // observer.next(objectUrl);
+                observer.next(m);
             });
 
         return () => {

@@ -41,11 +41,25 @@
         </div>
     </ng-template>
 
+    <ng-template [ngIf]="extension === 'html'">
+        <div class="text-center img-mb">
+            <iframe class="html-viewer" height="100%" width="100%" [srcdoc]="docUrl"></iframe>
+        </div>
+    </ng-template>
+
+    <ng-template [ngIf]="extension === 'text' || extension === 'txt'">
+        <div class="text-center img-mb">
+            <p>{{docUrl}}</p>
+        </div>
+    </ng-template>
+
     <ng-template [ngIf]="extension === 'pdf'">
         <div class="text-center img-mb">
             <ngx-extended-pdf-viewer [src]="docUrl | authImage | async"></ngx-extended-pdf-viewer>
         </div>
     </ng-template>
+
+    
 
 
 
